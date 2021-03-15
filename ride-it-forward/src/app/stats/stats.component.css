@@ -1,0 +1,16 @@
+.btn-custom {
+    background-color: #F58450 !important;
+    color: black !important; 
+    border-width:2px !important;
+    border-radius:30px !important;
+  }
+
+.btn:hover {
+    background-color: #EA5F29 !important;
+}
+
+.text-mont {
+    font-family: Montserrat;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
