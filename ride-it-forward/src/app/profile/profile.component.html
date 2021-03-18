@@ -1,10 +1,9 @@
 <app-navbar></app-navbar>
 <div class="container mt-5 col-xs-12 col-sm-10 col-md-10 offset-sm-1 offset-md-1">
-  <p *ngIf="loadedAthleteData.length < 1 && !isFetching">Ooops! Something went wrong :/</p>
     <div class="card mb-3 border-no" *ngIf="loadedAthleteData.length >= 1 && !isFetching">
         <div class="row no-gutters" *ngFor="let data of loadedAthleteData">
           <div class="col-md-2 pt-2">
-            <img [src]="pic" class="card-img rounded-circle img-fluid" style="width:170px;" alt="Profile pic">
+            <img [src]="pic" class="card-img rounded-circle img-fluid" style="width:160px;" alt="Profile pic">
           </div>
           <div class="col-md-10 pl-2">
             <div class="card-body">
@@ -17,9 +16,13 @@
           </div>
         </div>
     </div>
-    <div class="col-md-6 pt-5 pl-5" *ngIf="isFetching">
-      <app-loading-spinner></app-loading-spinner>
-    </div>
+    <div class="mb-5" *ngIf="loadedAthleteData.length < 1 && error">
+      <h4><i class="fas fa-skull-crossbones"></i>Ooops! Something went wrong!</h4>
+      <p>{{ error }}</p>
+      </div>
+      <div class="col-md-6 pt-5 pl-5" *ngIf="isFetching && !error">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
 </div>
 <br><br>
 <div class="col-md-12">

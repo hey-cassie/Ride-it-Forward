@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   public ytdDistance: number;
 
   isFetching = false;
+  error = null;
 
   constructor(private http: HttpClient) { }
 
@@ -31,7 +32,7 @@ export class ProfileComponent implements OnInit {
       this.http.get(
         'https://www.strava.com/api/v3/athlete',
         {
-          headers: new HttpHeaders({'Authorization': 'Bearer 90a2111c5a7968a822d5bf0e43948185758d2077'})
+          headers: new HttpHeaders({'Authorization': 'Bearer fddd429b60854e3187700610c25202894ff0c806'})
         }
          )
         // .pipe(map(responseData => {
@@ -46,12 +47,14 @@ export class ProfileComponent implements OnInit {
         .subscribe(responseData => {
           this.isFetching = false;
           //console.log(responseData);
-          this.pic = responseData['profile'];
           //console.log(this.firstName);
+          this.pic = responseData['profile'];
           const responseArray = [];
           responseArray.push(responseData);
           this.loadedAthleteData = responseArray;
-
+        }, error => {
+            this.error = error.message;
+            //console.log(error);
       });
   }
 
@@ -60,7 +63,7 @@ export class ProfileComponent implements OnInit {
     this.http.get(
       'https://www.strava.com/api/v3/athletes/5663363/stats',
       {
-        headers: new HttpHeaders({'Authorization': 'Bearer 90a2111c5a7968a822d5bf0e43948185758d2077'})
+        headers: new HttpHeaders({'Authorization': 'Bearer fddd429b60854e3187700610c25202894ff0c806'})
       }
        )
       // .pipe(map(responseData => {
