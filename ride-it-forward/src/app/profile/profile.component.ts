@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-//declare var require: any
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-profile',
@@ -9,56 +10,78 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  loadedAthleteData = [];
+  public pic;
+
+  //public loadedAthleteStats = [];
+  public ytdRides: number;
+  public ytdDistance: number;
+
+  isFetching = false;
 
   constructor(private http: HttpClient) { }
-  public firstName: string = '';
-
-  //declare var require: any
 
   ngOnInit(): void {
     this.getAthlete();
-    //this.getLoggedInAthlete();
+    this.getAthleteStats();
    }  
 
-     //"https://www.strava.com/api/v3/athlete" "Authorization: Bearer [[token]]"
   private getAthlete() {
+      this.isFetching = true;
       this.http.get(
         'https://www.strava.com/api/v3/athlete',
         {
-          headers: new HttpHeaders({'Authorization': 'Bearer b641c44393cc2205d4e2d727066caf9f98a255ac'})
+          headers: new HttpHeaders({'Authorization': 'Bearer 90a2111c5a7968a822d5bf0e43948185758d2077'})
         }
-        ).subscribe(response => {
-          //should i create a object model here?
-          console.log(response);
-          //this.firstName = response.firstname;
-          //let str = JSON.stringify(response);
-          //console.log(str);
+         )
+        // .pipe(map(responseData => {
+        //   const responseArray = [];
+        //   for (const key in responseData) {
+        //     if (responseData.hasOwnProperty(key)) {
+        //     responseArray.push(responseData[key])
+        //     }
+        //   }
+        //   return responseArray;
+        // }))
+        .subscribe(responseData => {
+          this.isFetching = false;
+          //console.log(responseData);
+          this.pic = responseData['profile'];
+          //console.log(this.firstName);
+          const responseArray = [];
+          responseArray.push(responseData);
+          this.loadedAthleteData = responseArray;
+
       });
   }
 
-  // getLoggedInAthlete() {
-  //   const athleteLink: string =  "https://www.strava.com/api/v3/athlete/activities?access_token=b641c44393cc2205d4e2d727066caf9f98a255ac";
 
-  //   fetch(athleteLink)
-  //   .then(response => console.log(response.json()))
-  // }
+  private getAthleteStats() {
+    this.http.get(
+      'https://www.strava.com/api/v3/athletes/5663363/stats',
+      {
+        headers: new HttpHeaders({'Authorization': 'Bearer 90a2111c5a7968a822d5bf0e43948185758d2077'})
+      }
+       )
+      // .pipe(map(responseData => {
+      //   const responseArray = [];
+      //   for (const key in responseData) {
+      //     if (responseData.hasOwnProperty(key)) {
+      //     responseArray.push({...responseData[key]})
+      //     }
+      //   }
+      //   return responseArray;
+      // }))
+      .subscribe(responseData => {
+        this.ytdRides = responseData['ytd_ride_totals'].count;
+        this.ytdDistance = Math.round(responseData['ytd_ride_totals'].distance / 1.60934) / 1000;
+        console.log(responseData['all_ride_totals'].count);
+        //console.log(responseData[2].count);
+        // const responseArr = [];
+        // responseArr.push(responseData);
+        // console.log(responseArr);
+        //console.log(responseData[2].count);
+    });
+}
 
-   //"https://www.strava.com/api/v3/athlete" "Authorization: Bearer [[token]]"
-  //   var StravaApiV3 = require('strava_api_v3');
-  //   var defaultClient = StravaApiV3.ApiClient.instance;
-
-  //   // Configure OAuth2 access token for authorization: strava_oauth
-  //   var strava_oauth = defaultClient.authentications['strava_oauth'];
-  //   strava_oauth.accessToken = "b619685d4ad4707229a067b368c432c226beed54"
-
-  //   var api = new StravaApiV3.AthletesApi()
-
-  //   var callback = function(error, data, response) {
-  //       if (error) {
-  //         console.error(error);
-  //       } else {
-  //         console.log('API called successfully. Returned data: ' + data);
-  //       }
-  //   };
-  //   api.getLoggedInAthlete(callback);
 }

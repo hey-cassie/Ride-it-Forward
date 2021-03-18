@@ -1,4 +1,5 @@
 # RideItForward
+Have you ever wondered how much you save on fuel while riding your bike/commuting to work? This handy app does the calculations for you and allows users to donate all or a portion of those savings to local nonprofits that advocate for cycling safety/safer streets. As a bike rider who has commuted to work for years, I know how fun and rewarding it can be. I also know that one bonus of bike commuting is the fuel savings. Likewise, I have worked in the nonprofit sector and know how hard it is to find funding that helps create and maintain safer streets. This app is meant to celebrate active transportation, and good health through biking, while connecting riders with local bike advocacy organizations.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
 

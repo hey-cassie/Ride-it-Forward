@@ -8,6 +8,7 @@ import { StatsComponent } from './stats/stats.component';
 import { DonationFormComponent } from './donation-form/donation-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ProfileComponent } from './profile/profile.component';
     StatsComponent,
     DonationFormComponent,
     NavbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,

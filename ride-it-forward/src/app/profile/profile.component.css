@@ -14,3 +14,14 @@
     text-transform: uppercase;
     letter-spacing: 2px;
   }
+
+.border-no {
+    border: none;
+}
+
+.icon {
+    background: url('src/assets/images/favicon1.svg');
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+}
