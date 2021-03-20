@@ -10,8 +10,13 @@
               <h3 class="card-text text-mont">{{ data.firstname }} {{ data.lastname }}</h3>
               <h6 class="card-text"><i class="fas fa-map-marker-alt"></i> {{ data.city }}, {{ data.state }}, {{ data.country }}</h6>
               <hr>
-              <h6 class="card-text">Rides this year: {{ ytdRides }}</h6>
-              <h6 class="card-text mb-5">Total Distance: {{ ytdDistance }} miles</h6>
+              <h4 class="card-text text-mont text-mont-sm">Year-to-Date</h4>
+              <h6 class="card-text">Rides: {{ ytdRides }}</h6>
+              <h6 class="card-text">Distance: {{ ytdDistance }} miles</h6>
+              <hr>
+              <h4 class="card-text text-mont text-mont-sm">All Time</h4>
+              <h6 class="card-text">Rides: {{ allTimeRidesTotal }}</h6>
+              <h6 class="card-text">Distance: {{ allTimeDistanceTotal }} miles</h6>
             </div>
           </div>
         </div>
@@ -25,13 +30,15 @@
       </div>
 </div>
 <br><br>
+<div *ngIf="!error">
 <div class="col-md-12">
   <img src="assets/images/money-03.svg" class="mx-auto d-block img-fluid" style="width: 160px;" alt="Money!">
 </div>
 <div class="container mt-3 mb-5">
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-8 offset-sm-1 offset-md-2 text-center">
-            <button type="button" class="btn btn-custom btn-lg text-mont" routerLink="/stats">View My Savings</button>
+            <button type="button" class="btn btn-custom btn-lg text-mont" routerLink="/savings">View My Savings</button>
         </div>
     </div>
+</div>
 </div>

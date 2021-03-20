@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { AthleteService } from '../athlete.service';
 
@@ -12,10 +12,10 @@ import { AthleteService } from '../athlete.service';
 export class ProfileComponent implements OnInit {
   loadedAthleteData = [];
   public pic;
-
-  //public loadedAthleteStats = [];
   public ytdRides: number;
   public ytdDistance: number;
+  public allTimeRidesTotal: number;
+  public allTimeDistanceTotal: number
 
   isFetching = false;
   error = null;
@@ -42,12 +42,19 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  formatNumber(number) {
+    return number.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  }
 
   private onGetAthleteStats() {
       this.athleteService.getAthleteStats().subscribe(responseData => {
+        console.log(responseData);
         this.ytdRides = responseData['ytd_ride_totals'].count;
         this.ytdDistance = Math.round(responseData['ytd_ride_totals'].distance / 1.60934) / 1000;
-        console.log(responseData['all_ride_totals'].count);
+        this.ytdDistance = this.formatNumber(this.ytdDistance);
+        this.allTimeRidesTotal = responseData['all_ride_totals'].count;
+        this.allTimeDistanceTotal = Math.round(responseData['all_ride_totals'].distance / 1.60934) / 1000;
+        this.allTimeDistanceTotal = this.formatNumber(this.allTimeDistanceTotal);
     });
 }
 

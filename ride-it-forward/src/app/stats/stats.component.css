@@ -14,3 +14,7 @@
     text-transform: uppercase;
     letter-spacing: 2px;
   }
+
+.text-mont-sm {
+    font-size: 16px;
+}

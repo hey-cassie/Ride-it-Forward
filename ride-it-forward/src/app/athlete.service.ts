@@ -9,10 +9,11 @@ export class AthleteService {
     constructor(private http: HttpClient) { }
 
     getAthlete() {
+      //reminder: this function is controlling the template/error handling
         return this.http
         .get('https://www.strava.com/api/v3/athlete',
             {
-              headers: new HttpHeaders({'Authorization': 'Bearer 6f96d08f1e52b98655e3b5040a0045dda605b711'})
+              headers: new HttpHeaders({'Authorization': 'Bearer 48404bd7c7dd8be555541d93ece1bbdd9b73bc11'})
             }
              );
     }
@@ -21,7 +22,7 @@ export class AthleteService {
         return this.http
         .get('https://www.strava.com/api/v3/athletes/5663363/stats',
           {
-            headers: new HttpHeaders({'Authorization': 'Bearer 6f96d08f1e52b98655e3b5040a0045dda605b711'})
+            headers: new HttpHeaders({'Authorization': 'Bearer 48404bd7c7dd8be555541d93ece1bbdd9b73bc11'})
           }
            );
           // .pipe(map(responseData => {
