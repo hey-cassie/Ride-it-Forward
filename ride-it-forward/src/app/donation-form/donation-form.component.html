@@ -1,2 +1,111 @@
 <app-navbar></app-navbar>
-<p>donation-form works!</p>
+<div class="container">
+    <div class="row"> 
+    <div class="col-xs-12 col-sm-10 col-md-8 offset-sm-1 offset-md-2">
+    <div class="signup-form">
+        <form>
+            <h3 class="text-center text-mont">awesome</h3>
+            <p class="text-center">Thanks for donating! textextextext</p>
+            <hr>
+            <div id="user-data">
+            <div class="form-group">
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <input 
+                        type="text"
+                        id="name"
+                        class="form-control form-control-lg"
+                        ngModel 
+                        name="name" 
+                        placeholder="Name" 
+                        required
+                        #nameRef>
+                        <span class="form-text" *ngIf="!nameRef.valid && nameRef.touched">Please enter a name</span>
+                    </div>
+                    <div class="col-md-6">
+                        <input 
+                        type="email"
+                        id="email"
+                        class="form-control form-control-lg "
+                        ngModel
+                        name="email" 
+                        placeholder="Email" 
+                        required
+                        email
+                        #emailRef>
+                        <span class="form-text" *ngIf="!emailRef.valid && emailRef.touched">Please enter a valid email</span>
+                    </div>
+                </div>        	
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <select 
+                        id="projectType"
+                        class="custom-select-lg form-control"
+                        name="projectType">
+                            <option disabled selected>Search Local Nonprofits</option>
+                            <option value="St. Louis BWorks">St. Louis BWorks</option>
+                            <option value="Great Rivers Greenway">Great Rivers Greenway</option>
+                            <option value="MO Bike Fed">MO Bike Fed</option>
+                            <option value="Trailnet">Trailnet</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select 
+                        id="budget"
+                        class="custom-select-lg form-control"
+                        name="budget">
+                            <option disabled selected>$$$</option>
+                            <option value="$200 - $1,000">$200 - $1,000</option>
+                            <option value="$1,000 - $5,000">$1,000 - $5,000</option>
+                            <option value="$5,000+">$5,000+</option>
+                            <option value="Let's talk about it!">Let's talk about it!</option>
+                        </select>
+                    </div>
+                </div>        	
+            </div>
+            <div class="form-group">
+                <textarea
+                type="text"
+                id="details"
+                class="form-control form-control-lg" rows="5" id="comment"
+                ngModel
+                name="details"
+                placeholder="Additional Details">
+                </textarea>
+            </div>
+            <!--<div class="col-md-12 mt-2">
+                <img src="assets/images/hmu-01.svg" class="mx-auto d-block" style="width:140px;" alt="Holler!">
+            </div>-->
+            <div class="form-group text-center">
+                <button 
+                type="submit" 
+                class="btn btn-lg btn-custom border-2 text-mont"
+                [disabled]="">SUBMIT</button>
+            </div>
+        </form>
+    </div>
+    </div>
+    <hr>
+    </div>
+    <!--<div class="modal" id="myModal">
+        <div class="modal-dialog" *ngIf="submitted">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close orange-text" (click)="closeModal()">&times;</button>
+                    <h4 class="text-center text-mont mt-3">HECK YEAH! 🙌</h4>
+                    <hr>
+                    <h6 class="text-center">Thanks for reaching out, {{ userInput.name }}! <br>Keep an eye out for an email from me in the next few days.</h6>
+                    <ul class="mb-4">
+                        <li>Email: {{ userInput.email }}</li>
+                        <li>Project Type: {{ userInput.project }}</li>
+                        <li>Budget: {{ userInput.budget }}</li>
+                        <li *ngIf="userInput.deets">Additional Deets: {{ userInput.deets }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>

@@ -12,4 +12,13 @@ export class DonationFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // openModal() {
+  //   document.getElementById("myModal").style.display = "block";
+  // }
+
+  // closeModal() {
+  //   this.userInput.deets = '';
+  //   document.getElementById("myModal").style.display = "none";
+  // }
+
 }
