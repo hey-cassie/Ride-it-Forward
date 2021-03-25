@@ -25,7 +25,7 @@
   }
   
   input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
-    border: 1px solid #F79221;
+    border: 1px solid #F58450;
   }
   
   ul {
@@ -34,7 +34,7 @@
   }
   
   .orange-text {
-  color: #F79221;
+  color: #F58450;
   }
   
  /* .text-mont {

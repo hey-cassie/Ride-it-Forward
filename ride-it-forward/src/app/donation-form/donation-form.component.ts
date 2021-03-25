@@ -19,9 +19,8 @@ export class DonationFormComponent implements OnInit {
         'name': new FormControl(null, Validators.required),
         'email': new FormControl(null, [Validators.required, Validators.email])
       }),
-      'nonprofit': new FormControl("Search", Validators.required),
-      //'nonprofit': new FormControl({value:"Search", disabled: true}, Validators.required),
-      'amount': new FormControl("Amount", Validators.required),
+      'nonprofit': new FormControl("Search"),
+      'amount': new FormControl("Amount"),
       'details': new FormControl(null)
       //amount will be changed from null to savings number eventually
     });
@@ -40,6 +39,13 @@ export class DonationFormComponent implements OnInit {
   closeModal() {
     //this.donateForm.details = '';
     document.getElementById("myModal").style.display = "none";
+    this.donateForm.reset({
+      name: '',
+      email: '',
+      nonprofit: 'Search',
+      amount: 'Amount',
+      details: ''
+    });
   }
 
 }

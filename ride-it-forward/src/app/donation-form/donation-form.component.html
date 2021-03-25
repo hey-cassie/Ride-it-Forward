@@ -5,7 +5,7 @@
     <div>
         <form [formGroup]="donateForm" (ngSubmit)="onSubmit()">
             <h3 class="text-center text-mont">awesome</h3>
-            <p class="text-center">Thanks for donating! textextextext</p>
+            <h6 class="text-center">Please fill out the form below <i class="fas fa-chevron-circle-down"></i></h6>
             <hr>
             <div formGroupName="userData">
             <div class="form-group">
@@ -82,7 +82,7 @@
                 <button 
                 type="submit" 
                 class="btn btn-lg btn-custom border-2 text-mont"
-                [disabled]="">SUBMIT</button>
+                [disabled]="!donateForm.valid">SUBMIT</button>
             </div>
         </form>
     </div>
@@ -94,14 +94,14 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <button type="button" class="close orange-text" (click)="closeModal()">&times;</button>
-                    <h4 class="text-center text-mont mt-3">HECK YEAH! 🙌</h4>
+                    <h4 class="text-center text-mont mt-3">HECK YEAH! <i class="far fa-smile"></i></h4>
                     <hr>
-                    <h6 class="text-center">Thanks for reaching out, {{ donateForm.get('userData.name') }}! <br>Keep an eye out for an email from me in the next few days.</h6>
+                    <h6 class="text-center">Thanks for your donation, {{ donateForm.get('userData.name').value }}! <br>Your contribution helps to create safer streets!</h6>
                     <ul class="mb-4">
-                        <li>Email: {{ donateForm.userData.email }}</li>
-                        <li>Nonprofit Type: {{ donteForm.nonprofit }}</li>
-                        <li>Amount: {{ donteForm.amount }}</li>
-                        <li *ngIf="donateForm.details">Additional Deets: {{ donateForm.details }}</li>
+                        <li>Email: {{ donateForm.get('userData.email').value }}</li>
+                        <li>Nonprofit: {{ donateForm.get('nonprofit').value }}</li>
+                        <li>Amount: {{ donateForm.get('amount').value }}</li>
+                        <li *ngIf="donateForm.get('details').value">Additional Details: {{ donateForm.get('details').value }}</li>
                     </ul>
                 </div>
             </div>
