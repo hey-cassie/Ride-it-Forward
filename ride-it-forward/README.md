@@ -1,7 +1,9 @@
 # RideItForward (like pay it forward)
 Have you ever wondered how much you save on fuel while riding your bike/commuting to work? This handy app does the calculations for you and allows users to donate all or a portion of those savings to local nonprofits that advocate for cycling safety/safer streets. As a bike rider who has commuted to work for years, I know how fun and rewarding it can be. I also know that one bonus of bike commuting is the fuel savings. Likewise, I have worked in the nonprofit sector and know how hard it is to find funding that helps create and maintain safer streets. This app is meant to celebrate active transportation, and good health through biking, while connecting riders with local bike advocacy organizations.
 
-*Please note: this project is a work in progress! Next steps include: form handling, user authentication, and setting up communication with Firebase. 
+**Please note: this project is a work in progress! Next steps include: form handling, user authentication, and setting up communication with Firebase.
+
+*Also! This app requires an user id & access token to connect with the Strava API v3. If you have a Strava account, please visit `https://www.strava.com/settings/api` to retrieve your token. Your user id is located in the url address of your profile page. Once retrieved, copy & paste token into the athlete.service.ts file (lines 16 & 25). Likewise, paste your id in the same file on line 23 and `run ng` serve to view your stats and fuel savings! 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
 
