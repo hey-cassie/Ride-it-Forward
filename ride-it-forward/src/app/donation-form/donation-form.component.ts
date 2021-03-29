@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SavingsService } from '../shared/loading-spinner/savings.service';
 
 @Component({
   selector: 'app-donation-form',
@@ -8,12 +9,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class DonationFormComponent implements OnInit {
   donateForm: FormGroup;
-  public savingsAmount: number = 666;
+  public totalSavings: any = this.savingsService.totalFuelSavings;
+  public halfSavings: any = this.savingsService.halfSavings;
+  public quarterSavings: any = this.savingsService.quarterSavings;
   submitted = false;
 
-  constructor() { }
+  constructor(private savingsService: SavingsService) { }
 
   ngOnInit(): void {
+    //this.initForm();
     this.donateForm = new FormGroup({
       'userData': new FormGroup({
         'name': new FormControl(null, Validators.required),
@@ -22,9 +26,12 @@ export class DonationFormComponent implements OnInit {
       'nonprofit': new FormControl("Search"),
       'amount': new FormControl("Amount"),
       'details': new FormControl(null)
-      //amount will be changed from null to savings number eventually
     });
   }
+
+  // initForm() {
+  //   //video 227
+  // }
 
   onSubmit(){
     console.log(this.donateForm);
@@ -37,7 +44,6 @@ export class DonationFormComponent implements OnInit {
   }
 
   closeModal() {
-    //this.donateForm.details = '';
     document.getElementById("myModal").style.display = "none";
     this.donateForm.reset({
       name: '',

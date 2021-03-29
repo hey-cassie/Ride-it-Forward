@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit {
 
   private onGetAthleteStats() {
       this.athleteService.getAthleteStats().subscribe(responseData => {
-        console.log(responseData);
+        //console.log(responseData);
         this.ytdRides = responseData['ytd_ride_totals'].count;
         this.ytdDistance = Math.round(responseData['ytd_ride_totals'].distance / 1.60934) / 1000;
         this.ytdDistance = this.formatNumber(this.ytdDistance);

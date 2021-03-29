@@ -58,10 +58,10 @@
                         formControlName="amount">
                             <option value="Amount" [disabled]="true">Donation Amount</option>
                             <!--<option disabled selected>$$$</option>-->
-                            <option value="total savings">Total savings: $ {{ savingsAmount}}</option>
-                            <option value="half savings">$1,000 - $5,000</option>
-                            <option value="$5,000+">$5,000+</option>
-                            <option value="Let's talk about it!">Let's talk about it!</option>
+                            <option [value]="totalSavings">Total Savings: $ {{ totalSavings}}</option>
+                            <option [value]="halfSavings">50% of Savings: $ {{ halfSavings }}</option>
+                            <option [value]="quarterSavings">25% of Savings: $ {{ quarterSavings }}</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                 </div>        	
@@ -96,11 +96,11 @@
                     <button type="button" class="close orange-text" (click)="closeModal()">&times;</button>
                     <h4 class="text-center text-mont mt-3">HECK YEAH! <i class="far fa-smile"></i></h4>
                     <hr>
-                    <h6 class="text-center">Thanks for your donation, {{ donateForm.get('userData.name').value }}! <br>Your contribution helps to create safer streets!</h6>
+                    <h6 class="text-center">Thanks for your donation, {{ donateForm.get('userData.name').value }}! <br>Your contribution helps to create safer streets <br> and happier riders!</h6>
                     <ul class="mb-4">
                         <li>Email: {{ donateForm.get('userData.email').value }}</li>
                         <li>Nonprofit: {{ donateForm.get('nonprofit').value }}</li>
-                        <li>Amount: {{ donateForm.get('amount').value }}</li>
+                        <li>Amount: $ {{ donateForm.get('amount').value }}</li>
                         <li *ngIf="donateForm.get('details').value">Additional Details: {{ donateForm.get('details').value }}</li>
                     </ul>
                 </div>

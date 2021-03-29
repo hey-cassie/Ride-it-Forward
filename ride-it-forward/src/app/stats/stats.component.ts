@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AthleteService } from '../athlete.service';
+import { SavingsService } from '../shared/loading-spinner/savings.service';
 
 @Component({
   selector: 'app-stats',
@@ -9,44 +10,27 @@ import { AthleteService } from '../athlete.service';
 })
 export class StatsComponent implements OnInit {
   public loadedAthleteData = [];
-  public ytdDistance: number;
-  public fuelSavings: number;
-  public gasPrice: number = 2.77;
+  public fuelSavings: any;
 
-  constructor(private athleteService: AthleteService) { }
+
+  constructor(private athleteService: AthleteService, private savingsService: SavingsService) { }
 
   ngOnInit(): void {
-    this.calculateFuelCosts();
     this.onGetAthlete();
+    this.showSavings();
   }
 
-  formatNumber(number) {
-    return number.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  showSavings() {
+    this.savingsService.calculateFuelCosts();
+    this.fuelSavings = this.savingsService.totalFuelSavings;
   }
-
-  private calculateFuelCosts() {
-    this.athleteService.getAthleteStats().subscribe(responseData => {
-      this.fuelSavings = Math.round(responseData['ytd_ride_totals'].distance / 1.60934) / 1000;
-      //this.allTimeDistanceTotal = this.formatNumber(this.allTimeDistanceTotal);
-      // this.ytdDistance = this.ytdDistance / 25;
-      // this.ytdDistance = this.ytdDistance * this.gasPrice;
-      // this.ytdDistance = this.formatNumber(this.ytdDistance)
-      // console.log(this.ytdDistance);
-      this.fuelSavings = (this.fuelSavings / 25) * this.gasPrice;
-      this.formatNumber(this.fuelSavings);
-      //this.fuelSavings = this.fuelSavings.toFixed(2);
-      console.log(this.fuelSavings);
-      //return this.fuelSavings;
-    })
-  }
-
+ 
   private onGetAthlete() {
+    //keep in this component this is getting athlete name for template
     this.athleteService.getAthlete().subscribe(responseData => {
         const responseArray = [];
         responseArray.push(responseData);
         this.loadedAthleteData = responseArray;
-        }, error => {
-           //this.error = error.message;
     });
 }
 }
