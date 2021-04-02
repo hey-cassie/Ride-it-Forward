@@ -10,7 +10,7 @@ import { DonationFormComponent } from './donation-form/donation-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
-import { AthleteService } from './athlete.service';
+
 
 
 @NgModule({
@@ -29,7 +29,7 @@ import { AthleteService } from './athlete.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AthleteService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

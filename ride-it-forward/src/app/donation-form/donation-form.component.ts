@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AthleteService } from '../athlete.service';
 import { SavingsService } from '../shared/loading-spinner/savings.service';
 
 @Component({
@@ -8,16 +10,23 @@ import { SavingsService } from '../shared/loading-spinner/savings.service';
   styleUrls: ['./donation-form.component.css']
 })
 export class DonationFormComponent implements OnInit {
-  donateForm: FormGroup;
-  public totalSavings: any = this.savingsService.totalFuelSavings;
-  public halfSavings: any = this.savingsService.halfSavings;
-  public quarterSavings: any = this.savingsService.quarterSavings;
+  public donateForm: FormGroup;
+  // public totalSavings: any = this.savingsService.totalFuelSavings;
+  // public halfSavings: any = this.savingsService.halfSavings;
+  // public quarterSavings: any = this.savingsService.quarterSavings;
+  public gasPrice: number = 2.77;
+  public totalSavings: any;
+  public halfSavings: any;
+  public quarterSavings: any;
+  public name: string;
   submitted = false;
 
-  constructor(private savingsService: SavingsService) { }
+  constructor(private athleteService: AthleteService, 
+    private savingsService: SavingsService, private http: HttpClient) { }
 
   ngOnInit(): void {
-    //this.initForm();
+    this.initForm();
+    //this.getAthleteName();
     this.donateForm = new FormGroup({
       'userData': new FormGroup({
         'name': new FormControl(null, Validators.required),
@@ -29,13 +38,26 @@ export class DonationFormComponent implements OnInit {
     });
   }
 
-  // initForm() {
-  //   //video 227
+  initForm() {
+    //video 227
+    this.athleteService.getAthleteStats().subscribe(responseData => {
+      this.totalSavings = Math.round(responseData['ytd_ride_totals'].distance / 1.60934) / 1000;
+      this.totalSavings = ((this.totalSavings / 25) * this.gasPrice).toFixed(2);
+      this.halfSavings = (this.totalSavings * .5).toFixed(2);
+      this.quarterSavings = (this.totalSavings * .25).toFixed(2);
+    });
+  }
+
+  // getAthleteName() {
+  //   this.athleteService.getAthlete().subscribe(responseData => {
+  //       this.name = responseData['firstname'];
+  //   });
   // }
 
   onSubmit(){
-    console.log(this.donateForm);
+    //console.log(this.donateForm);
     this.submitted = true;
+    this.storeDonationData();
     this.openModal();
   }
 
@@ -52,6 +74,13 @@ export class DonationFormComponent implements OnInit {
       amount: 'Amount',
       details: ''
     });
+  }
+
+  storeDonationData() {
+        const donationData = this.donateForm.value;
+        this.http.put('https://ride-it-forward-default-rtdb.firebaseio.com/donation.json', donationData).subscribe( response => {
+          console.log(response);
+        });
   }
 
 }

@@ -13,9 +13,9 @@ export class ProfileComponent implements OnInit {
   loadedAthleteData = [];
   public pic;
   public ytdRides: number;
-  public ytdDistance: number;
+  public ytdDistance: any;
   public allTimeRidesTotal: number;
-  public allTimeDistanceTotal: number
+  public allTimeDistanceTotal: any;
 
   isFetching = false;
   error = null;
@@ -51,9 +51,11 @@ export class ProfileComponent implements OnInit {
         //console.log(responseData);
         this.ytdRides = responseData['ytd_ride_totals'].count;
         this.ytdDistance = Math.round(responseData['ytd_ride_totals'].distance / 1.60934) / 1000;
+        this.ytdDistance = this.ytdDistance.toFixed(2);
         this.ytdDistance = this.formatNumber(this.ytdDistance);
         this.allTimeRidesTotal = responseData['all_ride_totals'].count;
         this.allTimeDistanceTotal = Math.round(responseData['all_ride_totals'].distance / 1.60934) / 1000;
+        this.allTimeDistanceTotal = this.allTimeDistanceTotal.toFixed(2);
         this.allTimeDistanceTotal = this.formatNumber(this.allTimeDistanceTotal);
     });
 }
