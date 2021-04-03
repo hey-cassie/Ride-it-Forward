@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AthleteService } from '../athlete.service';
 import { SavingsService } from '../shared/loading-spinner/savings.service';
 
@@ -18,11 +19,13 @@ export class DonationFormComponent implements OnInit {
   public totalSavings: any;
   public halfSavings: any;
   public quarterSavings: any;
-  public name: string;
+  //public name: string;
   submitted = false;
 
   constructor(private athleteService: AthleteService, 
-    private savingsService: SavingsService, private http: HttpClient) { }
+    private savingsService: SavingsService, 
+    private http: HttpClient,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -57,7 +60,7 @@ export class DonationFormComponent implements OnInit {
   onSubmit(){
     //console.log(this.donateForm);
     this.submitted = true;
-    this.storeDonationData();
+    //this.storeDonationData();
     this.openModal();
   }
 
@@ -67,6 +70,8 @@ export class DonationFormComponent implements OnInit {
 
   closeModal() {
     document.getElementById("myModal").style.display = "none";
+    this.fetchDonationData()
+    this.navigateToProfile()
     this.donateForm.reset({
       name: '',
       email: '',
@@ -78,9 +83,27 @@ export class DonationFormComponent implements OnInit {
 
   storeDonationData() {
         const donationData = this.donateForm.value;
-        this.http.put('https://ride-it-forward-default-rtdb.firebaseio.com/donation.json', donationData).subscribe( response => {
+        this.http
+        .put(
+          'https://ride-it-forward-default-rtdb.firebaseio.com/donation.json', 
+          donationData
+          ).subscribe( response => {
+          //put request overrides any data we previously stored
+          //http requests are only sent when we subscribe
           console.log(response);
-        });
+          });
+  }
+
+  fetchDonationData() {
+    this.http.get('https://ride-it-forward-default-rtdb.firebaseio.com/donation.json'
+    ).subscribe( responseData => {
+      console.log(responseData);
+      console.log(responseData['amount']);
+    })
+  }
+
+  navigateToProfile() {
+    this.router.navigate(['/profile']);
   }
 
 }

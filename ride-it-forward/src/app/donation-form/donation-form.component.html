@@ -82,7 +82,8 @@
                 <button 
                 type="submit" 
                 class="btn btn-lg btn-custom border-2 text-mont"
-                [disabled]="!donateForm.valid">SUBMIT</button>
+                [disabled]="!donateForm.valid"
+                (click)="storeDonationData()">DONATE</button>
             </div>
         </form>
     </div>

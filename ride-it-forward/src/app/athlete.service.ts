@@ -13,7 +13,7 @@ export class AthleteService {
         return this.http
         .get('https://www.strava.com/api/v3/athlete',
             {
-              headers: new HttpHeaders({'Authorization': 'Bearer c724f79463ef2926bd46dd92d1d2f4b8cecec5a2'})
+              headers: new HttpHeaders({'Authorization': 'Bearer 162bad7c952b5dfb0827921baa43eabdac7e5e8e'})
             }
              );
     }
@@ -22,7 +22,7 @@ export class AthleteService {
         return this.http
         .get('https://www.strava.com/api/v3/athletes/5663363/stats',
           {
-            headers: new HttpHeaders({'Authorization': 'Bearer c724f79463ef2926bd46dd92d1d2f4b8cecec5a2'})
+            headers: new HttpHeaders({'Authorization': 'Bearer 162bad7c952b5dfb0827921baa43eabdac7e5e8e'})
           }
            );
           // .pipe(map(responseData => {
