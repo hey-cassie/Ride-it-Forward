@@ -17,10 +17,29 @@
               <h4 class="card-text text-mont text-mont-sm">All Time</h4>
               <h6 class="card-text">Rides: {{ allTimeRidesTotal }}</h6>
               <h6 class="card-text">Distance: {{ allTimeDistanceTotal }} miles</h6>
+              <hr>
+              <div *ngIf="hasDonated">
+              <h4 class="card-text text-mont text-mont-sm"> nice!</h4>
+              <h6 class="card-text"><i class="fas fa-flag-checkered"></i> {{ data.firstname }} just donated ${{ donationAmount }} to {{ nonprofit }} to help improve cycling saftey in {{ data.city }}!</h6>
+              <br>
+              <button type="button" class="btn btn-custom btn-sm text-mont" (click)="onClearDonationData()">Clear</button>
+              </div>
             </div>
           </div>
         </div>
     </div>
+    <!--<div class="card mb-3 border-no" *ngIf="fetchedDonationData.length >= 1">
+      <div class="row no-gutters" *ngFor="let data of fetchedDonationData">
+        <div class="col-md-10 pl-2">
+          <div class="card-body">
+            <h4 class="card-text text-mont text-mont-sm"> nice!</h4>
+              <h6 class="card-text"><i class="fas fa-flag-checkered"></i> {{ data.firstname }} just donated ${{ donation.amount }} to {{ donation.nonprofit }} to help improve cycling saftey in {{ data.city }}!</h6>
+              <br>
+              <button type="button" class="btn btn-custom btn-sm text-mont" (click)="onClearDonationData()">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>-->
     <div class="mb-5" *ngIf="loadedAthleteData.length < 1 && error">
       <h4><i class="fas fa-skull-crossbones"></i> Ooops! Something went wrong!</h4>
       <p>{{ error }}</p>
@@ -30,7 +49,7 @@
       </div>
 </div>
 <br><br>
-<div *ngIf="!error">
+<div *ngIf="!error && !hasDonated">
 <div class="col-md-12">
   <img src="assets/images/money-03.svg" class="mx-auto d-block img-fluid" style="width: 160px;" alt="Money!">
 </div>

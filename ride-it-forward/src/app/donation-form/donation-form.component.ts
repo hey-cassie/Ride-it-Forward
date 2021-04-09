@@ -70,7 +70,7 @@ export class DonationFormComponent implements OnInit {
 
   closeModal() {
     document.getElementById("myModal").style.display = "none";
-    this.fetchDonationData()
+    //this.fetchDonationData()
     this.navigateToProfile()
     this.donateForm.reset({
       name: '',
@@ -94,13 +94,13 @@ export class DonationFormComponent implements OnInit {
           });
   }
 
-  fetchDonationData() {
-    this.http.get('https://ride-it-forward-default-rtdb.firebaseio.com/donation.json'
-    ).subscribe( responseData => {
-      console.log(responseData);
-      console.log(responseData['amount']);
-    })
-  }
+  // fetchDonationData() {
+  //   this.http.get('https://ride-it-forward-default-rtdb.firebaseio.com/donation.json'
+  //   ).subscribe( responseData => {
+  //     console.log(responseData);
+  //     console.log(responseData['amount']);
+  //   })
+  // }
 
   navigateToProfile() {
     this.router.navigate(['/profile']);

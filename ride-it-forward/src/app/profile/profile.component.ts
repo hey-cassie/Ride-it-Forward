@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { AthleteService } from '../athlete.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,21 +12,29 @@ import { AthleteService } from '../athlete.service';
 })
 export class ProfileComponent implements OnInit {
   loadedAthleteData = [];
+  fetchedDonationData = [];
   public pic;
   public ytdRides: number;
   public ytdDistance: any;
   public allTimeRidesTotal: number;
   public allTimeDistanceTotal: any;
+  public donationAmount: any;
+  public nonprofit: string;
 
   isFetching = false;
   error = null;
   disable = false;
+  hasDonated = false;
 
-  constructor(private http: HttpClient, private athleteService: AthleteService) { }
+  constructor(private http: HttpClient, private athleteService: AthleteService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.onGetAthlete();
     this.onGetAthleteStats();
+    this.fetchDonationData();
+    //need hasDonated to be false on first visit, so I need to call fetchDonation in a diff spot
+    console.log('reloaded!');
    }  
 
   private onGetAthlete() {
@@ -58,6 +67,34 @@ export class ProfileComponent implements OnInit {
         this.allTimeDistanceTotal = this.allTimeDistanceTotal.toFixed(2);
         this.allTimeDistanceTotal = this.formatNumber(this.allTimeDistanceTotal);
     });
+}
+
+fetchDonationData() {
+  this.http.get('https://ride-it-forward-default-rtdb.firebaseio.com/donation.json'
+  ).subscribe( responseData => {
+    //console.log(responseData);
+    //console.log(responseData['amount']);
+    if (responseData === null) {
+      console.log('No data yet!')
+    } else {
+    this.hasDonated = true;
+    this.donationAmount = responseData['amount'];
+    this.nonprofit = responseData['nonprofit']
+    }
+    // const donationArray = [];
+    // donationArray.push(responseData);
+    // this.fetchedDonationData = donationArray;
+    //console.log(this.fetchedDonationData);
+    //might have to push to an array and use ngIf in template
+  })
+}
+
+onClearDonationData() {
+  this.http.delete('https://ride-it-forward-default-rtdb.firebaseio.com/donation.json'
+  ).subscribe(() => {
+    this.hasDonated = false;
+    this.router.navigate(['/profile']);
+  });
 }
 
 }
