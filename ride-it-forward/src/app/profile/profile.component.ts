@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { AthleteService } from '../athlete.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GasService } from '../gas.service';
 
 
 @Component({
@@ -27,9 +28,11 @@ export class ProfileComponent implements OnInit {
   hasDonated = false;
 
   constructor(private http: HttpClient, private athleteService: AthleteService,
-    private router: Router) { }
+    private router: Router, private route: ActivatedRoute, private gasService: GasService) { }
 
   ngOnInit(): void {
+    // this.gasService.onFetchPrice();
+    // this.gasService.onFetchState();
     this.onGetAthlete();
     this.onGetAthleteStats();
     this.fetchDonationData();
@@ -93,7 +96,12 @@ onClearDonationData() {
   this.http.delete('https://ride-it-forward-default-rtdb.firebaseio.com/donation.json'
   ).subscribe(() => {
     this.hasDonated = false;
-    this.router.navigate(['/profile']);
+    //this.router.navigate(['/'], {relativeTo: this.route});
+    //how to get this to actually reload page?!
+    // let currentUrl = this.router.url;
+    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    //     this.router.navigate([currentUrl]);
+    // });
   });
 }
 

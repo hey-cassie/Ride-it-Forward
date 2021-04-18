@@ -10,7 +10,7 @@ import { SavingsService } from '../shared/loading-spinner/savings.service';
 })
 export class StatsComponent implements OnInit {
   public loadedAthleteData = [];
-  public gasPrice: number = 2.77;
+  public gasPrice: number = 2.87;
   public totalFuelSavings: any;
   public halfSavings: any;
   public quarterSavings: any;
