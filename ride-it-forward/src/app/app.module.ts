@@ -10,6 +10,7 @@ import { DonationFormComponent } from './donation-form/donation-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AuthComponent } from './auth/auth.component';
 
 
 
@@ -20,7 +21,8 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     DonationFormComponent,
     NavbarComponent,
     ProfileComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

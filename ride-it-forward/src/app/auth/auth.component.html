@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+<div class="container">
+<div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-6 offset-sm-1 offset-md-3">
+        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+            <h3 class="text-center text-mont">welcome!</h3>
+            <h6 class="text-center">Please sign up or login below <i class="fas fa-chevron-circle-down"></i></h6>
+            <hr>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                type="email" 
+                id="email" 
+                class="form-control" 
+                ngModel 
+                name="email"
+                required
+                email
+                >
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                type="password" 
+                id="password" 
+                class="form-control"
+                ngModel
+                name="password"
+                required
+                minlength="6"
+                >
+            </div>
+            <br>
+            <div class="text-center">
+                <button class="btn btn-sm btn-custom border-2 text-mont" type="submit" [disabled]="!authForm.valid" >{{ isLoginMode ? 'Login' : 'Sign up' }}</button>
+                <button class="btn btn-sm btn-custom border-2 text-mont ml-2" (click)="onSwitchMode()" type="button">
+                    Switch to {{ isLoginMode ? 'Sign up' : 'Login' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
