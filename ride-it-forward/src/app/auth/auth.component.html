@@ -2,7 +2,13 @@
 <div class="container">
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-6 offset-sm-1 offset-md-3">
-        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+        <div class="text-center" *ngIf="error">
+            <h5><i class="fas fa-skull-crossbones"></i> {{ error }}</h5>
+        </div>
+        <div *ngIf="isLoading" class="text-center">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
             <h3 class="text-center text-mont">welcome!</h3>
             <h6 class="text-center">Please sign up or login below <i class="fas fa-chevron-circle-down"></i></h6>
             <hr>

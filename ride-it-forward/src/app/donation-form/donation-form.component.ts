@@ -15,7 +15,7 @@ export class DonationFormComponent implements OnInit {
   // public totalSavings: any = this.savingsService.totalFuelSavings;
   // public halfSavings: any = this.savingsService.halfSavings;
   // public quarterSavings: any = this.savingsService.quarterSavings;
-  public gasPrice: number = 2.77;
+  public gasPrice: number = 2.87;
   public totalSavings: any;
   public halfSavings: any;
   public quarterSavings: any;
