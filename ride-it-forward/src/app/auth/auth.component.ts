@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService, AuthResponseData } from './auth.service';
 
@@ -13,7 +14,7 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   error: string = null;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -33,6 +34,7 @@ export class AuthComponent implements OnInit {
       this.authService.login(email, password).subscribe(responseData => {
         console.log(responseData);
         this.isLoading = false;
+        this.router.navigate(['/profile']);
       }, errorMessage => {
         console.log(errorMessage);
         this.error = errorMessage;
@@ -43,10 +45,10 @@ export class AuthComponent implements OnInit {
       this.authService.signup(email, password).subscribe(responseData => {
         console.log(responseData);
         this.isLoading = false;
+        this.router.navigate(['/profile']);
       }, errorMessage => {
         console.log(errorMessage);
         this.error = errorMessage;
-        //this.error = 'Uh oh! Something went wrong! Please try again.';
         this.isLoading = false;
       });
     }

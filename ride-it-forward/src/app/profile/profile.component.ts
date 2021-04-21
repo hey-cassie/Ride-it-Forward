@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { AthleteService } from '../athlete.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GasService } from '../gas.service';
+import { AuthService } from '../auth/auth.service';
+import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -11,7 +14,8 @@ import { GasService } from '../gas.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
+  private userSubscription: Subscription;
   loadedAthleteData = [];
   fetchedDonationData = [];
   public pic;
@@ -21,24 +25,40 @@ export class ProfileComponent implements OnInit {
   public allTimeDistanceTotal: any;
   public donationAmount: any;
   public nonprofit: string;
+  public userToken: string;
 
   isFetching = false;
   error = null;
   disable = false;
   hasDonated = false;
+  isAuthenticated = false;
 
-  constructor(private http: HttpClient, private athleteService: AthleteService,
-    private router: Router, private route: ActivatedRoute, private gasService: GasService) { }
+  constructor(
+    private http: HttpClient, 
+    private athleteService: AthleteService,
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private gasService: GasService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     // this.gasService.onFetchPrice();
     // this.gasService.onFetchState();
+    this.userSubscription = this.authService.user.subscribe(user => {
+      this.isAuthenticated = !user ? false : true; //can also write !!user
+    });
+    this.authService.autoLogin();
+    //this.authService.autoLogout();
     this.onGetAthlete();
     this.onGetAthleteStats();
     this.fetchDonationData();
     //need hasDonated to be false on first visit, so I need to call fetchDonation in a diff spot
     console.log('reloaded!');
    }  
+
+   ngOnDestroy() {
+     this.userSubscription.unsubscribe();
+   }
 
   private onGetAthlete() {
       this.isFetching = true;
@@ -73,7 +93,15 @@ export class ProfileComponent implements OnInit {
 }
 
 fetchDonationData() {
-  this.http.get('https://ride-it-forward-default-rtdb.firebaseio.com/donation.json'
+  this.authService.user.pipe(take(1)).subscribe(user => {
+    this.userToken = user.token;
+    //console.log(this.userToken);
+    //return user.token
+  })
+  this.http.get('https://ride-it-forward-default-rtdb.firebaseio.com/donation.json',
+  {
+    params: new HttpParams().set('auth', this.userToken)
+  }
   ).subscribe( responseData => {
     //console.log(responseData);
     //console.log(responseData['amount']);
@@ -93,7 +121,10 @@ fetchDonationData() {
 }
 
 onClearDonationData() {
-  this.http.delete('https://ride-it-forward-default-rtdb.firebaseio.com/donation.json'
+  this.authService.user.pipe(take(1)).subscribe(user => {
+    this.userToken = user.token;
+  })
+  this.http.delete('https://ride-it-forward-default-rtdb.firebaseio.com/donation.json?auth=' + this.userToken
   ).subscribe(() => {
     this.hasDonated = false;
     //this.router.navigate(['/'], {relativeTo: this.route});

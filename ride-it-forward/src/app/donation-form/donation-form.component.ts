@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 import { AthleteService } from '../athlete.service';
+import { AuthService } from '../auth/auth.service';
 import { SavingsService } from '../shared/loading-spinner/savings.service';
 
 @Component({
@@ -21,11 +23,13 @@ export class DonationFormComponent implements OnInit {
   public quarterSavings: any;
   //public name: string;
   submitted = false;
+  public userToken: string;
 
   constructor(private athleteService: AthleteService, 
     private savingsService: SavingsService, 
     private http: HttpClient,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -83,9 +87,12 @@ export class DonationFormComponent implements OnInit {
 
   storeDonationData() {
         const donationData = this.donateForm.value;
+        this.authService.user.pipe(take(1)).subscribe(user => {
+          this.userToken = user.token;
+        })
         this.http
         .put(
-          'https://ride-it-forward-default-rtdb.firebaseio.com/donation.json', 
+          'https://ride-it-forward-default-rtdb.firebaseio.com/donation.json?auth=' + this.userToken, 
           donationData
           ).subscribe( response => {
           //put request overrides any data we previously stored

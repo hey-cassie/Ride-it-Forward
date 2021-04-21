@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthComponent } from './auth/auth.component';
+import { NavbarAuthComponent } from './navbar-auth/navbar-auth.component';
 
 
 
@@ -22,7 +23,8 @@ import { AuthComponent } from './auth/auth.component';
     NavbarComponent,
     ProfileComponent,
     LoadingSpinnerComponent,
-    AuthComponent
+    AuthComponent,
+    NavbarAuthComponent
   ],
   imports: [
     BrowserModule,
